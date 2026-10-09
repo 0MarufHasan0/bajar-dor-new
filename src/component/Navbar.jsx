@@ -108,11 +108,16 @@ export default function Navbar() {
       {/* Desktop Category */}
       <div className="mx-auto hidden w-full max-w-7xl md:block">
         <ul className="flex gap-3 px-6 py-2">
+          <li>
+            <Link href="/" className={`${ pathname === `/`?'bg-green-500 text-white p-1':''}`}>
+           🏠 হোম
+            </Link>
+          </li>
           {catagory.map((cat) => (
             <li key={cat?.id}>
               <Link
                 href={`/categories/${cat?.slug}`}
-                className= {`flex items-center gap-1 ${ pathname === `/categories/${cat?.slug}`?'border-b border-green-700':''}`}
+                className= {`flex items-center gap-1 ${ pathname === `/categories/${cat?.slug}`?'bg-green-500 text-white p-1':''}`}
               >
                 <span>{cat.icon}</span>
                 <p>{cat.nameBn}</p>
@@ -129,6 +134,11 @@ export default function Navbar() {
 
             
             {/* Mobile Categories */}
+             <li>
+            <Link href="/" className={`${ pathname === `/`?'bg-green-500 text-white p-1':''}`}>
+           🏠 হোম
+            </Link>
+          </li>
             {catagory.map((cat) => (
               <li key={cat?.id}>
                 <Link

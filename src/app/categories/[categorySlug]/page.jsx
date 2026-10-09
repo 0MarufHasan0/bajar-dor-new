@@ -34,13 +34,13 @@ const CategoryPage = async({params}) => {
       <div className="flex items-center gap-3">
         {/* Emoji */}
         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gray-100 text-3xl">
-          {currentCategory.image}
+          {currentCategory?.image}
         </div>
 
         {/* Sort S */}
         <div className="min-w-0">
           <h2 className="truncate text-3xl font-bold text-gray-900">
-            {currentCategory.categoryNameBn}
+            {currentCategory?.categoryNameBn}
           </h2>
 
           <p className="mt-1 text-sm text-gray-500 ">
