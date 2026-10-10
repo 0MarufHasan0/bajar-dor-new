@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, Button } from "@heroui/react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import UserInfo from "./UserInfo";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function Navbar() {
   useEffect(() => {
     const CategoryNav = async () => {
       const res = await fetch(
-        "https://api.abcz.workers.dev/api/bazardor/categories"
+        "https://openapi.programming-hero.com/api/bazardor/categories"
       );
 
       const data = await res.json();
@@ -100,8 +101,7 @@ export default function Navbar() {
 
         {/* Desktop Login */}
         <div className="hidden items-center gap-4 md:flex">
-          <Link href="#">Login</Link>
-          <Button>Sign Up</Button>
+         <UserInfo/>
         </div>
       </header>
 

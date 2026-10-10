@@ -6,7 +6,7 @@ import React from 'react';
 
 const categorySingleProductGet = async (categorySlug) => {
   const res = await fetch(
-    `https://api.abcz.workers.dev/api/bazardor/products?category=${categorySlug}`,{
+    `https://openapi.programming-hero.com/api/bazardor/products?category=${categorySlug}`,{
         cache :'no-store'
     }
   );
