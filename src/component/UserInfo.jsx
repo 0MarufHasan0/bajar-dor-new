@@ -16,7 +16,7 @@ const UserInfo = () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          toast.success("সফলভাবে লগআউট হয়েছে!");
+          toast.error("সফলভাবে লগআউট হয়েছে!");
           router.push("/sign-in");
         },
       },
