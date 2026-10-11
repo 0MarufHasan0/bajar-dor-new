@@ -70,16 +70,38 @@ cd your-project-folder
 npm install
 ```
 
-### 4. Configure Environment Variables
+## 🔐 Environment Variables
 
-Create a `.env` file in the project root and add the environment variables required by your Better Auth configuration and database setup.
+To run BazarDor locally, configure the required environment variables in a `.env` file at the root of the project.
+
+### 1. Create a `.env` file
 
 ```env
-BETTER_AUTH_SECRET=your_secret_key
+BETTER_AUTH_SECRET=your_generated_secret
 BETTER_AUTH_URL=http://localhost:3000
+BETTER_AUTH_MONGODB_URL=your_mongodb_connection_string
+
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 ```
 
-Add your database and OAuth provider credentials if your configuration requires them. Never commit real secrets or API keys to GitHub.
+### 2. Configure the variables
+
+| Variable | Description |
+|---|---|
+| `BETTER_AUTH_SECRET` | Secret used for authentication and session security |
+| `BETTER_AUTH_URL` | Base URL of the application |
+| `BETTER_AUTH_MONGODB_URL` | MongoDB connection string |
+| `GOOGLE_CLIENT_ID` | Google OAuth client ID |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret |
+
+### ⚠️ Security Notice
+
+- Never commit your `.env` file or real credentials to GitHub.
+- Keep all secrets private and configure production variables in your hosting provider.
+- Make sure `.env*` files containing secrets are excluded in `.gitignore`, while retaining any safe example file such as `.env.example`.
+- Generate a strong authentication secret and rotate any credentials that have been exposed.
+
 
 ### 5. Start the Development Server
 
