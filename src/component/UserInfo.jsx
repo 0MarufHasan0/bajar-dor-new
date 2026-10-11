@@ -70,13 +70,14 @@ const UserInfo = () => {
         <>
           <Link href="/sign-in">Sign In</Link>
 
+        <Link href="/sign-up">
           <Button
             className="bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500"
-            as={Link}
-            href="/sign-up"
-          >
+            >
             Sign Up
           </Button>
+        
+        </Link>
         </>
       )}
     </div>

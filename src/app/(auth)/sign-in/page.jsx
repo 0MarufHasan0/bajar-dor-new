@@ -16,6 +16,7 @@ import {
   TextField,
 } from "@heroui/react";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 export default function SignIn() {
   const [isVisible, setIsVisible] = useState(false);
@@ -209,12 +210,12 @@ export default function SignIn() {
         {/* Sign Up Link */}
         <p className="mt-7 text-center text-sm text-emerald-100/60">
           নতুন অ্যাকাউন্ট নেই?{" "}
-          <a
+          <Link
             href="/sign-up"
             className="font-semibold text-emerald-400 transition hover:text-emerald-300 hover:underline"
           >
             সাইন আপ করুন
-          </a>
+          </Link>
         </p>
 
         <p className="mt-6 text-center text-xs leading-5 text-emerald-100/35">
