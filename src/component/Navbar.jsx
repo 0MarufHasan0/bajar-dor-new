@@ -13,7 +13,6 @@ export default function Navbar() {
   const [date, setDate] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
-  
 
   useEffect(() => {
     const CategoryNav = async () => {
@@ -24,9 +23,8 @@ export default function Navbar() {
       const data = await res.json();
 
       setCategory(data);
-        
-      setIsLoading(false)
 
+      setIsLoading(false);
     };
 
     const updateDate = () => {
@@ -38,13 +36,9 @@ export default function Navbar() {
       setDate(currentDate);
     };
 
-
     CategoryNav();
-    
-      updateDate();
-   
 
-   
+    updateDate();
   }, []);
 
   return (
@@ -107,63 +101,68 @@ export default function Navbar() {
 
         {/* Desktop Login */}
         <div className="hidden items-center gap-4 md:flex">
-         <UserInfo/>
+          <UserInfo />
         </div>
       </header>
 
+      {/* Desktop Category */}
+      {isLoading ? (
+        <CategoryLoading />
+      ) : (
+        <div className="mx-auto hidden w-full max-w-7xl md:block">
+          <ul className="flex gap-3 px-6 py-2">
+            <li>
+              <Link
+                href="/"
+                className={`${
+                  pathname === "/" ? "bg-green-500 text-white p-1" : ""
+                }`}
+              >
+                🏠 হোম
+              </Link>
+            </li>
 
-
-
-  
-{/* Desktop Category */}
-{isLoading ? (
-  <CategoryLoading />
-) : (
-  <div className="mx-auto hidden w-full max-w-7xl md:block">
-    <ul className="flex gap-3 px-6 py-2">
-      <li>
-        <Link
-          href="/"
-          className={`${
-            pathname === "/" ? "bg-green-500 text-white p-1" : ""
-          }`}
-        >
-          🏠 হোম
-        </Link>
-      </li>
-
-      {catagory.map((cat) => (
-        <li key={cat?.id}>
-          <Link
-            href={`/categories/${cat?.slug}`}
-            className={`flex items-center gap-1 ${
-              pathname === `/categories/${cat?.slug}`
-                ? "bg-green-500 text-white p-1"
-                : ""
-            }`}
-          >
-            <span>{cat.icon}</span>
-            <p>{cat.nameBn}</p>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </div>
-)}
-
+            {catagory.map((cat) => (
+              <li key={cat?.id}>
+                <Link
+                  href={`/categories/${cat?.slug}`}
+                  className={`flex items-center gap-1 ${
+                    pathname === `/categories/${cat?.slug}`
+                      ? "bg-green-500 text-white p-1"
+                      : ""
+                  }`}
+                >
+                  <span>{cat.icon}</span>
+                  <p>{cat.nameBn}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="border-t border-separator md:hidden">
           <ul className="flex flex-col gap-2 p-4">
 
-            
+            {/* Mobile User Info */}
+            <li className="border-b border-separator pb-3">
+              <UserInfo />
+            </li>
+
             {/* Mobile Categories */}
-             <li>
-            <Link href="/" className={`${ pathname === `/`?'bg-green-500 text-white p-1':''}`}>
-           🏠 হোম
-            </Link>
-          </li>
+            <li>
+              <Link
+                href="/"
+                className={`${
+                  pathname === "/" ? "bg-green-500 text-white p-1" : ""
+                }`}
+              >
+                🏠 হোম
+              </Link>
+            </li>
+
             {catagory.map((cat) => (
               <li key={cat?.id}>
                 <Link
@@ -177,17 +176,18 @@ export default function Navbar() {
             ))}
 
             {/* Mobile Auth */}
-            <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
+            {/* <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
               <Link href="/sign-in" className="block py-2">
                 Sign In
               </Link>
 
-              <Link href="/sign-up" className="block py-2 bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500">
+              <Link
+                href="/sign-up"
+                className="block py-2 bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500"
+              >
                 Sign up
               </Link>
-
-              
-            </li>
+            </li> */}
           </ul>
         </div>
       )}

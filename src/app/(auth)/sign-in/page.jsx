@@ -1,10 +1,9 @@
-
 "use client";
 
 import { authClient } from "@/lib/auth-client";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import {
   Button,
@@ -22,21 +21,25 @@ export default function SignIn() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
 
+  const handleSignGoogle = async () => {
+    try {
+      const { data, error } = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
 
-    const handleSignGoogle = async() => {
-  const data = await authClient.signIn.social({
-    provider: "google",
-  
-});
+      if (error) {
+        toast.error(error.message || "Google Login ব্যর্থ হয়েছে!");
+        return;
+      }
 
-
-
-if (error) {
-    toast.error(error.message || "Google Login ব্যর্থ হয়েছে!");
-  }
-
-  toast.success("গুগল দিয়ে সফলভাবে লগইন হয়েছে!");
+      if (data) {
+        toast.success("গুগল দিয়ে সফলভাবে লগইন হয়েছে!");
+      }
+    } catch (error) {
+      toast.error(error.message || "Google Login ব্যর্থ হয়েছে!");
     }
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -46,20 +49,15 @@ if (error) {
 
     const { data, error } = await authClient.signIn.email({
       email: user.email,
-      password: user.password ,
+      password: user.password,
       callbackURL: "/",
     });
-
-    // if (data) {
-    // toast.success("সফলভাবে লগইন হয়েছে!");
-    //   router.replace("/");
-    // }
 
     if (error) {
       toast.error("ইমেইল অথবা পাসওয়ার্ড সঠিক নয়!");
     }
 
-     if (data) {
+    if (data) {
       toast.success("সফলভাবে লগইন হয়েছে!");
       router.replace("/");
     }
@@ -143,12 +141,11 @@ if (error) {
               <Label className="text-sm font-medium text-emerald-50">
                 পাসওয়ার্ড
               </Label>
-
             </div>
 
             <InputGroup>
               <InputGroup.Input
-               name="password"
+                name="password"
                 type={isVisible ? "text" : "password"}
                 placeholder="আপনার পাসওয়ার্ড লিখুন"
               />
@@ -168,13 +165,12 @@ if (error) {
             <FieldError className="mt-1 text-xs text-red-400" />
           </TextField>
 
-            <Button
-      type="submit"
-      className="mt-1 w-full rounded-xl bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500 py-3.5 font-semibold text-[#06120a] shadow-lg shadow-emerald-500/20 transition hover:brightness-110"
-    >
-      লগইন করুন 
-    </Button>
-
+          <Button
+            type="submit"
+            className="mt-1 w-full rounded-xl bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500 py-3.5 font-semibold text-[#06120a] shadow-lg shadow-emerald-500/20 transition hover:brightness-110"
+          >
+            লগইন করুন
+          </Button>
         </Form>
 
         {/* Divider */}
@@ -187,13 +183,13 @@ if (error) {
         </div>
 
         {/* Social Login */}
-        <div className="grid  gap-3">
+        <div className="grid gap-3">
           {/* Google */}
           <Button
             type="button"
             variant="secondary"
             className="flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-900/80 bg-emerald-950/40 py-3 text-sm font-medium text-white transition hover:border-emerald-500/50 hover:bg-emerald-900/40"
-           onClick={handleSignGoogle}
+            onClick={handleSignGoogle}
           >
             <svg
               viewBox="0 0 48 48"
@@ -221,7 +217,6 @@ if (error) {
             </svg>
             Google
           </Button>
-
         </div>
 
         {/* Sign Up Link */}

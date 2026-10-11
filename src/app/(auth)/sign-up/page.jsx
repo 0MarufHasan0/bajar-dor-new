@@ -27,14 +27,26 @@ export default function SignUp() {
 
 // google login
 
-   const handleSignGoogle = async() => {
-   const data = await authClient.signIn.social({
-    provider: "google",
-  
-});
+   
+   const handleSignGoogle = async () => {
+    try {
+      const { data, error } = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
 
- toast.success("গুগল দিয়ে সফলভাবে লগইন হয়েছে!");
+      if (error) {
+        toast.error(error.message || "Google Login ব্যর্থ হয়েছে!");
+        return;
+      }
+
+      if (data) {
+        toast.success("গুগল দিয়ে সফলভাবে লগইন হয়েছে!");
+      }
+    } catch (error) {
+      toast.error(error.message || "Google Login ব্যর্থ হয়েছে!");
     }
+  };
 
    
 
