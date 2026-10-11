@@ -50,13 +50,18 @@ if (error) {
       callbackURL: "/",
     });
 
-    if (data) {
-    toast.success("সফলভাবে লগইন হয়েছে!");
-      router.replace("/");
-    }
+    // if (data) {
+    // toast.success("সফলভাবে লগইন হয়েছে!");
+    //   router.replace("/");
+    // }
 
     if (error) {
       toast.error("ইমেইল অথবা পাসওয়ার্ড সঠিক নয়!");
+    }
+
+     if (data) {
+      toast.success("সফলভাবে লগইন হয়েছে!");
+      router.replace("/");
     }
   };
 
