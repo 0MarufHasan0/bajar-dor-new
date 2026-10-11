@@ -11,7 +11,6 @@
     <img src="https://img.shields.io/badge/🌐_Live_Demo-Visit_Website-16A34A?style=for-the-badge" alt="Live Demo" />
   </a>
   <img src="https://img.shields.io/badge/Next.js-App_Router-black?style=for-the-badge&logo=next.js" alt="Next.js" />
-  <img src="https://img.shields.io/badge/TypeScript-Type_Safe-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
 </p>
 
 ---
@@ -41,9 +40,8 @@ BazarDor is a modern market price tracking application designed to help users ex
 |---|---|
 | Next.js | React framework and application routing |
 | React | Building reusable UI components |
-| TypeScript | Type-safe development |
 | Tailwind CSS | Responsive styling and modern UI |
-| DaisyUI / UI Components | Reusable interface elements |
+| HeroUI Components | Reusable interface elements |
 | Better Auth | User authentication and account management |
 | React Hot Toast | Success, error, and feedback notifications |
 | Lucide React | Modern icons |
@@ -134,7 +132,7 @@ The goal of BazarDor is to make everyday market price information easier to expl
 
 ## 👨‍💻 Author
 
-Developed with ❤️ using Next.js, TypeScript, and modern web technologies.
+Developed with ❤️ using Next.js and modern web technologies.
 
 ---
 
