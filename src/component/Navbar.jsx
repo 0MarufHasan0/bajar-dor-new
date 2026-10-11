@@ -178,11 +178,15 @@ export default function Navbar() {
 
             {/* Mobile Auth */}
             <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
-              <Link href="#" className="block py-2">
-                Login
+              <Link href="/sign-in" className="block py-2">
+                Sign In
               </Link>
 
-              <Button className="w-full">Sign Up</Button>
+              <Link href="/sign-up" className="block py-2 bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500">
+                Sign up
+              </Link>
+
+              
             </li>
           </ul>
         </div>
