@@ -21,14 +21,21 @@ import Link from "next/link";
 export default function SignIn() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
-      const handleSignGoogle = async() => {
+
+
+    const handleSignGoogle = async() => {
   const data = await authClient.signIn.social({
     provider: "google",
   
 });
+
+
+
 if (error) {
     toast.error(error.message || "Google Login ব্যর্থ হয়েছে!");
   }
+
+  toast.success("গুগল দিয়ে সফলভাবে লগইন হয়েছে!");
     }
 
   const onSubmit = async (e) => {

@@ -25,13 +25,18 @@ export default function SignUp() {
     const [isConfirmVisible, setIsConfirmVisible] = useState(false);
     const router = useRouter();
 
+// google login
 
    const handleSignGoogle = async() => {
    const data = await authClient.signIn.social({
     provider: "google",
   
 });
+
+ toast.success("গুগল দিয়ে সফলভাবে লগইন হয়েছে!");
     }
+
+   
 
 
 
