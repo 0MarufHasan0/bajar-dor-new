@@ -4,7 +4,7 @@
 import { authClient } from "@/lib/auth-client";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import { redirect } from "next/navigation";
+import {  useRouter } from "next/navigation";
 
 import {
   Button,
@@ -19,12 +19,16 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 
 export default function SignIn() {
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
       const handleSignGoogle = async() => {
   const data = await authClient.signIn.social({
     provider: "google",
   
 });
+if (error) {
+    toast.error(error.message || "Google Login ব্যর্থ হয়েছে!");
+  }
     }
 
   const onSubmit = async (e) => {
@@ -41,7 +45,7 @@ export default function SignIn() {
 
     if (data) {
     toast.success("সফলভাবে লগইন হয়েছে!");
-      redirect("/");
+      router.replace("/");
     }
 
     if (error) {
@@ -132,6 +136,7 @@ export default function SignIn() {
 
             <InputGroup>
               <InputGroup.Input
+               name="password"
                 type={isVisible ? "text" : "password"}
                 placeholder="আপনার পাসওয়ার্ড লিখুন"
               />
