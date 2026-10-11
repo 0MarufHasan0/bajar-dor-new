@@ -6,10 +6,7 @@ import { notFound } from "next/navigation.js";
 
 const allProducts = async () => {
   const res = await fetch(
-    "https://openapi.programming-hero.com/api/bazardor/products",
-    {
-      cache: "no-store",
-    }
+    "https://openapi.programming-hero.com/api/bazardor/products"
   );
 
   const data = await res.json();

@@ -6,10 +6,7 @@ import { notFound } from "next/navigation";
 
 const getProductDetails = async (slug) => {
   const res = await fetch(
-    `https://openapi.programming-hero.com/api/bazardor/products/${slug}`,
-    {
-      cache: "no-store",
-    }
+    `https://openapi.programming-hero.com/api/bazardor/products/${slug}`
   );
 
   if (!res.ok) {

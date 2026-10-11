@@ -4,10 +4,7 @@ import Marquee from "react-fast-marquee";
 
 const allDataMarquee = async () => {
   const res = await fetch(
-    "https://openapi.programming-hero.com/api/bazardor/products",
-    {
-      cache: "no-store",
-    }
+    "https://openapi.programming-hero.com/api/bazardor/products"
   );
 
   const data = await res.json();

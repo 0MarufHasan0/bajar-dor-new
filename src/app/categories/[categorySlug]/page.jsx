@@ -7,9 +7,7 @@ import { notFound } from 'next/navigation';
 
 const categorySingleProductGet = async (categorySlug) => {
   const res = await fetch(
-    `https://openapi.programming-hero.com/api/bazardor/products?category=${categorySlug}`,{
-        cache :'no-store'
-    }
+    `https://openapi.programming-hero.com/api/bazardor/products?category=${categorySlug}`
   );
 
 
