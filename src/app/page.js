@@ -1,6 +1,8 @@
 
 import HeroBanner from "@/component/Banner.jsx";
 import HomePageCard from "../component/HomePageCard.jsx";
+import Profile from "./profile/page.jsx";
+import { notFound } from "next/navigation.js";
 
 const allProducts = async () => {
   const res = await fetch(
@@ -11,12 +13,17 @@ const allProducts = async () => {
   );
 
   const data = await res.json();
+  if(!data){
+    notFound()
+  }
+
   return data;
 };
 
 export default async function Home() {
   const products = await allProducts();
 
+  
   const dirUp = products.filter((p) => p.change.dir === "up").slice(0, 6);
   const dirDown = products.filter((p) => p.change.dir === "down").slice(0, 6);
 

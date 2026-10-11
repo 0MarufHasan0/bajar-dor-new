@@ -2,6 +2,7 @@
 import Tablee from "@/component/Table";
 import { Card } from "@heroui/react";
 import { Table } from "lucide-react";
+import { notFound } from "next/navigation";
 
 const getProductDetails = async (slug) => {
   const res = await fetch(
@@ -12,10 +13,16 @@ const getProductDetails = async (slug) => {
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch product");
+    notFound();
   }
 
-  return res.json();
+  const data = await res.json();
+
+  if (!data) {
+    notFound();
+  }
+
+  return data;
 };
 
 const Details = async ({ params }) => {
@@ -23,6 +30,7 @@ const Details = async ({ params }) => {
 
   const product = await getProductDetails(slug);
 
+  
   console.log("products", product);
 
   const priceUp = product.today - product.yesterday;

@@ -2,6 +2,7 @@ import SortBy from '@/component/SortBy';
 import HomePageCard from '../../../component/HomePageCard';
 import { Card } from '@heroui/react';
 import React from 'react';
+import { notFound } from 'next/navigation';
 
 
 const categorySingleProductGet = async (categorySlug) => {
@@ -16,8 +17,12 @@ const categorySingleProductGet = async (categorySlug) => {
   if (!res.ok) {
     throw new Error("Failed to fetch category");
   }
+  const data = await res.json()
+  if(!data){
+    notFound()
+  }
 
-  return res.json();
+  return data
 }
 
 const CategoryPage = async({params}) => {
