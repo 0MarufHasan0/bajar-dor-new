@@ -9,18 +9,21 @@ export async function proxy(request) {
     headers: await headers() // you need to pass the headers object.
 })
 
+ console.log("Session:", session);
+
 const user = session?.user
+
+console.log('user', user)
 
 if(!user){
      return NextResponse.redirect(new URL('/sign-in', request.url))
 }
 
-  return NextResponse.redirect(new URL('/', request.url))
 }
  
 // Alternatively, you can use a default export:
 // export default function proxy(request) { ... }
  
 export const config = {
-  matcher:['/profile', '/products/:path'],
+  matcher:['/profile','/products/:path'],
 }

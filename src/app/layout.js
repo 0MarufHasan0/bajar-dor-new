@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "../component/Navbar";
 import MarqueeHeadline from "../component/Marquee";
 import { ToastContainer } from "react-toastify";
+import Footer from "@/component/Footer";
 
 const hindSiliguri = Hind_Siliguri({
   variable: "--font-hind-siliguri",
@@ -40,6 +41,8 @@ export default function RootLayout({ children }) {
         
         
         {children}
+
+        <Footer/>
         
         </body>
     </html>
