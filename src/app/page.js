@@ -1,4 +1,5 @@
 
+import HeroBanner from "@/component/Banner.jsx";
 import HomePageCard from "../component/HomePageCard.jsx";
 
 const allProducts = async () => {
@@ -21,6 +22,9 @@ export default async function Home() {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
+
+      <HeroBanner/>
+
       {/* High Price */}
       <section className="container mx-auto mt-10 space-y-5">
         <h1 className="text-2xl text-[#1D271F] sm:text-3xl lg:text-4xl">
@@ -48,7 +52,7 @@ export default async function Home() {
       </section>
 
       {/* All Products */}
-      <section className="container mx-auto mt-10 space-y-5">
+      <section className="container mx-auto mt-10 space-y-5 " id="সব-পণ্য">
         <h1 className="text-2xl text-[#1D271F] sm:text-3xl lg:text-4xl">
           সব পণ্য
         </h1>

@@ -1,15 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Link, Button } from "@heroui/react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import UserInfo from "./UserInfo";
+import CategoryLoading from "./CategoryLoading";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [catagory, setCategory] = useState([]);
   const [date, setDate] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
   
 
@@ -22,8 +24,9 @@ export default function Navbar() {
       const data = await res.json();
 
       setCategory(data);
+        
+      setIsLoading(false)
 
-      updateDate();
     };
 
     const updateDate = () => {
@@ -35,8 +38,11 @@ export default function Navbar() {
       setDate(currentDate);
     };
 
+
     CategoryNav();
-    updateDate()
+    
+      updateDate();
+   
 
    
   }, []);
@@ -105,27 +111,46 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Desktop Category */}
-      <div className="mx-auto hidden w-full max-w-7xl md:block">
-        <ul className="flex gap-3 px-6 py-2">
-          <li>
-            <Link href="/" className={`${ pathname === `/`?'bg-green-500 text-white p-1':''}`}>
-           🏠 হোম
-            </Link>
-          </li>
-          {catagory.map((cat) => (
-            <li key={cat?.id}>
-              <Link
-                href={`/categories/${cat?.slug}`}
-                className= {`flex items-center gap-1 ${ pathname === `/categories/${cat?.slug}`?'bg-green-500 text-white p-1':''}`}
-              >
-                <span>{cat.icon}</span>
-                <p>{cat.nameBn}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+
+
+
+  
+{/* Desktop Category */}
+{isLoading ? (
+  <CategoryLoading />
+) : (
+  <div className="mx-auto hidden w-full max-w-7xl md:block">
+    <ul className="flex gap-3 px-6 py-2">
+      <li>
+        <Link
+          href="/"
+          className={`${
+            pathname === "/" ? "bg-green-500 text-white p-1" : ""
+          }`}
+        >
+          🏠 হোম
+        </Link>
+      </li>
+
+      {catagory.map((cat) => (
+        <li key={cat?.id}>
+          <Link
+            href={`/categories/${cat?.slug}`}
+            className={`flex items-center gap-1 ${
+              pathname === `/categories/${cat?.slug}`
+                ? "bg-green-500 text-white p-1"
+                : ""
+            }`}
+          >
+            <span>{cat.icon}</span>
+            <p>{cat.nameBn}</p>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
 
       {/* Mobile Menu */}
       {isMenuOpen && (

@@ -13,13 +13,21 @@ import {
   TextField,
 } from "@heroui/react";
 import { useState } from "react";
+import Link from "next/link";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+
+
 ;
 
 export default function SignUp() {
     const [isVisible, setIsVisible] = useState(false);
+    const [isConfirmVisible, setIsConfirmVisible] = useState(false);
+    const router = useRouter();
 
-    const handleSignGoogle = async() => {
-  const data = await authClient.signIn.social({
+
+   const handleSignGoogle = async() => {
+   const data = await authClient.signIn.social({
     provider: "google",
   
 });
@@ -34,6 +42,11 @@ export default function SignUp() {
       const formData = new FormData(e.currentTarget);
 
       const user = Object.fromEntries(formData.entries())
+      
+      if (user.password !== user.confirmPassword) {
+          toast.error("দুইটি পাসওয়ার্ড মিলছে না!");
+         return;
+        }
 
     const { data, error } = await authClient.signUp.email({
           name: user.name,
@@ -42,13 +55,42 @@ export default function SignUp() {
           callbackURL: "/",
        });
 
-    if(data){
-        console.log('data goted', data)
-    }
+        //  console.log('data' , data)
 
-    if(error){
-        console.log('error',error)
-    }
+        
+             if (error) {
+             const message = error.message;
+
+           if (message.includes("already exists")) {
+             toast.error("এই ইমেইল দিয়ে আগে থেকেই অ্যাকাউন্ট আছে।");
+           } else if (message.includes("Invalid email")) {
+             toast.error("সঠিক ইমেইল ঠিকানা লিখুন।");
+           } else if (message.includes("password")) {
+             toast.error("পাসওয়ার্ডটি সঠিক নয় অথবা গ্রহণযোগ্য নয়।");
+           } else {
+             toast.error("অ্যাকাউন্ট তৈরি করা যায়নি। আবার চেষ্টা করুন।");
+           }
+         
+           return;
+         }
+
+    if(data){
+    
+        toast.success('অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!', {
+         position: "top-right",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: false,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       
+         });
+         
+         router.replace('/')
+             }
+
 }
 
   return (
@@ -168,8 +210,9 @@ export default function SignUp() {
 
        <InputGroup>
       <InputGroup.Input
+       name="password"
         type={isVisible ? "text" : "password"}
-        placeholder="Enter your password"
+        placeholder="আপনার পাসওয়ার্ড লিখুন"
       />
       <InputGroup.Suffix>
         <button
@@ -179,6 +222,47 @@ export default function SignUp() {
           className="text-muted hover:text-foreground p-1 focus:outline-none"
         >
           {isVisible ? <EyeOff size={16} /> : <Eye size={16} />}
+        </button>
+      </InputGroup.Suffix>
+    </InputGroup>
+
+      <FieldError className="mt-1 text-xs text-red-400" />
+    </TextField>
+
+    {/* Password confirm */}
+    <TextField
+      isRequired
+      name="confirmPassword"
+      type="password"
+      validate={(value) =>
+        value.length < 4
+          ? "পাসওয়ার্ড মিলছে না"
+          : null
+      }
+    >
+      <Label className="mb-2 text-sm font-medium text-emerald-50">
+       পাসওয়ার্ড নিশ্চিত করুন
+      </Label>
+
+      {/* <Input
+        placeholder="কমপক্ষে ৪ অক্ষর লিখুন"
+        autoComplete="new-password"
+        className="w-full rounded-xl border border-emerald-900/80 bg-[#09120d] px-4 py-3 text-sm text-white outline-none transition placeholder:text-emerald-100/30 hover:border-emerald-700 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/10"
+      /> */}
+
+       <InputGroup>
+      <InputGroup.Input
+        type={isConfirmVisible ? "text" : "password"}
+        placeholder="আপনার পাসওয়ার্ড লিখুন"
+      />
+      <InputGroup.Suffix>
+        <button
+          type="button"
+          onClick={() => setIsConfirmVisible(!isConfirmVisible)}
+          aria-label={isConfirmVisible ? "Hide password" : "Show password"}
+          className="text-muted hover:text-foreground p-1 focus:outline-none"
+        >
+          {isConfirmVisible ? <EyeOff size={16} /> : <Eye size={16} />}
         </button>
       </InputGroup.Suffix>
     </InputGroup>
@@ -209,7 +293,7 @@ export default function SignUp() {
   </div>
 
   {/* Google & GitHub Login */}
-  <div className="grid grid-cols-2 gap-3">
+  <div className="grid gap-3">
 
     {/* Google */}
     <Button
@@ -246,36 +330,17 @@ export default function SignUp() {
       Google
     </Button>
 
-    {/* GitHub */}
-    <Button
-      type="button"
-      variant="secondary"
-      className="flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-900/80 bg-emerald-950/40 py-3 text-sm font-medium text-white transition hover:border-emerald-500/50 hover:bg-emerald-900/40"
-      onPress={() => {
-        // GitHub login logic এখানে লিখবে
-      }}
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="h-5 w-5"
-        aria-hidden="true"
-      >
-        <path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.53v-2.06c-3.1.67-3.76-1.32-3.76-1.32-.5-1.29-1.24-1.63-1.24-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.93.1-.72.39-1.21.71-1.49-2.48-.28-5.09-1.24-5.09-5.51 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.11-1.44 3.05-1.14 3.05-1.14.61 1.54.23 2.68.11 2.96.72.78 1.15 1.78 1.15 3.01 0 4.28-2.62 5.22-5.11 5.5.4.35.76 1.02.76 2.06V22c0 .29.2.64.76.53A11.1 11.1 0 0 0 12 .9Z" />
-      </svg>
-      GitHub
-    </Button>
   </div>
 
   {/* Sign In Link */}
   <p className="mt-7 text-center text-sm text-emerald-100/60">
     আগে থেকেই অ্যাকাউন্ট আছে?{" "}
-    <a
+    <Link
       href="/sign-in"
       className="font-semibold text-emerald-400 transition hover:text-emerald-300 hover:underline"
     >
       সাইন ইন করুন
-    </a>
+    </Link>
   </p>
 
   {/* Terms */}

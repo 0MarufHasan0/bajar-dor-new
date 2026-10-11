@@ -1,4 +1,5 @@
 import { Card } from "@heroui/react";
+import Link from "next/link";
 import React from "react";
 
 const HomePageCard = ({ product }) => {
@@ -6,6 +7,9 @@ const HomePageCard = ({ product }) => {
   const isDown = product.change.dir === "down";
 
   return (
+   <Link href={`/products/${product.id}`}>
+   
+   
     <Card className="border border-gray-200 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
       {/* Product Header */}
       <div className="flex items-center gap-3">
@@ -67,6 +71,7 @@ const HomePageCard = ({ product }) => {
         </div>
       </div>
     </Card>
+   </Link>
   );
 };
 

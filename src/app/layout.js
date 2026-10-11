@@ -1,8 +1,8 @@
 import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import Navbar from "../component/Navbar";
-import { Suspense } from "react";
 import MarqueeHeadline from "../component/Marquee";
+import { ToastContainer } from "react-toastify";
 
 const hindSiliguri = Hind_Siliguri({
   variable: "--font-hind-siliguri",
@@ -27,11 +27,13 @@ export default function RootLayout({ children }) {
          
       <Navbar />
   
-              <div>
+              
+                <ToastContainer/>
+                
      
         <MarqueeHeadline />
      
-    </div>
+    
       
         
   

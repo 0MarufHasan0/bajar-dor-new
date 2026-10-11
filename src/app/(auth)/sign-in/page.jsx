@@ -15,6 +15,7 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+import { toast } from "react-toastify";
 
 export default function SignIn() {
   const [isVisible, setIsVisible] = useState(false);
@@ -38,12 +39,12 @@ export default function SignIn() {
     });
 
     if (data) {
-      console.log("data goted", data);
+    toast.success("সফলভাবে লগইন হয়েছে!");
       redirect("/");
     }
 
     if (error) {
-      console.log("error", error);
+      toast.error("ইমেইল অথবা পাসওয়ার্ড সঠিক নয়!");
     }
   };
 
@@ -131,7 +132,7 @@ export default function SignIn() {
             <InputGroup>
               <InputGroup.Input
                 type={isVisible ? "text" : "password"}
-                placeholder="Enter your password"
+                placeholder="আপনার পাসওয়ার্ড লিখুন"
               />
 
               <InputGroup.Suffix>
@@ -168,7 +169,7 @@ export default function SignIn() {
         </div>
 
         {/* Social Login */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid  gap-3">
           {/* Google */}
           <Button
             type="button"
@@ -203,25 +204,6 @@ export default function SignIn() {
             Google
           </Button>
 
-          {/* GitHub */}
-          <Button
-            type="button"
-            variant="secondary"
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-900/80 bg-emerald-950/40 py-3 text-sm font-medium text-white transition hover:border-emerald-500/50 hover:bg-emerald-900/40"
-            onPress={() => {
-              // GitHub login logic এখানে লিখবে
-            }}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="h-5 w-5"
-              aria-hidden="true"
-            >
-              <path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.53v-2.06c-3.1.67-3.76-1.32-3.76-1.32-.5-1.29-1.24-1.63-1.24-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.93.1-.72.39-1.21.71-1.49-2.48-.28-5.09-1.24-5.09-5.51 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.11-1.44 3.05-1.14 3.05-1.14.61 1.54.23 2.68.11 2.96.72.78 1.15 1.78 1.15 3.01 0 4.28-2.62 5.22-5.11 5.5.4.35.76 1.02.76 2.06V22c0 .29.2.64.76.53A11.1 11.1 0 0 0 12 .9Z" />
-            </svg>
-            GitHub
-          </Button>
         </div>
 
         {/* Sign Up Link */}

@@ -19,6 +19,8 @@ const MarqueeHeadline = async () => {
   const data = await allDataMarquee();
 
   return (
+
+   
     <div className="w-full bg-gray-200 overflow-hidden border-y border-default-200 py-2 shadow-sm">
       <Marquee
         speed={100}
@@ -30,7 +32,7 @@ const MarqueeHeadline = async () => {
    
 
         {data.map((product) => (
-                <Link  key={product.id} href={`/products/${product.slug}`}>
+                <Link  key={product.id} href={`/products/${product.id}`}>
           <div
            
             className="mx-2 flex items-center gap-3 rounded-full border border-default-200 bg-default-50 px-4 py-2 transition hover:bg-default-100"
@@ -95,6 +97,8 @@ const MarqueeHeadline = async () => {
        
       </Marquee>
     </div>
+   
+  
   );
 };
 
